@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<head>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<style>
+	#map {
+		width: 100%;
+		height: 600px;
+		box-shadow: 5px 5px 5px #888;
+}
+</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script>
+		var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <ahref="http://osm.org/copyright">OpenStreetMap</a>'
+		+'contributors',
+		maxZoom: 18
+		});
+		var map = L.map('map', {
+		center: [1.614433, -75.609455],
+		zoom: 13,
+		layers: osm,
+		scrollWheelZoom: false,
+		});
+		var marker = L.marker([1.620006, -75.604245], {
+		draggable: true,
+		title: 'pincha aquí'
+		}).addTo(map)
+		.bindPopup('Universidad de la Amazonía (UDLA)')
+		.openPopup();
+		var marker = L.marker([1.614961, -75.613276], {
+		draggable: true,
+		title: 'pincha aquí'
+		}).addTo(map)
+		.bindPopup('Parque Santander-(Florencia - Caquetá),(Colombia)))')
+		.openPopup();
+		var circle = L.circle([1.614955, -75.613285], 300, {
+      		color: 'red',
+		fillColor: '#f03',
+		fillOpacity: 0.5
+		}).addTo(map);
+
+   	 	var polygon = L.polygon([
+      		[1.615183, -75.613738],
+      		[1.615300, -75.613385],
+   		[1.615423, -75.613010],
+      		[1.615081, -75.612904],
+      		[1.614690, -75.612785],
+      		[1.614590, -75.613141],
+      		[1.614483, -75.613525],
+      		[1.614886, -75.613647]
+
+    		]).addTo(map)
+      		.bindPopup('Parque Santander');
+
+		var pointA = new L.LatLng(1.620006, -75.604245);
+   	 	var pointB = new L.LatLng(1.606798, -75.603300);
+    		var latlngs = [pointA, pointB];
+    		var distance = map.distance(pointA, pointB);
+    		var distancems = distance / 1000;
+
+		var polyline = L.polyline(
+		latlngs, { color: 'red' }
+		).addTo(map).bindPopup('La ruta de Mi vivienda a la Universidad es: ' + distancems.toFixed(3) + ' Kms');
+		L.control.scale().addTo(map);
+
+	</script>
+</body>
+</html>
